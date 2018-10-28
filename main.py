@@ -46,3 +46,15 @@ class Graph:
 
     def get_vertices(self):
         return self.vertices.keys()
+
+try:
+    graph = Graph()
+    while str != "":
+        str=input()
+        words = str.split(" ")
+        origin = words[0]
+        dest = words[1]
+        weight = words[2]
+        graph.add_edge(origin, dest, weight)
+except ValueError:
+    print("Error")
