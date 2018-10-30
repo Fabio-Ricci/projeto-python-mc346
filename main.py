@@ -1,9 +1,9 @@
 from fileinput import input
-
+from math import inf
 
 class Vertex:
     def __init__(self, v):
-        self.name = v
+        self.id = v
         self.adjacent = {}
 
     def add_neighbor(self, neighbor, weight=0):
@@ -13,7 +13,7 @@ class Vertex:
         return self.adjacent.keys()
 
     def get_id(self):
-        return self.name
+        return self.id
 
     def get_weight(self, neighbor):
         return self.adjacent[neighbor]
@@ -75,6 +75,29 @@ try:
             starting_trips.append((origin, dest))
         else:
             reading_trips = True
+
+    #inicializa o dicionario de pesos com infinito
+    #let dist be a |V| × |V| array of minimum distances initialized to ∞ (infinity)
+    dist = {}
+    for origin in graph.__iter__():
+        dist[origin.get_id] = {}
+        for dest in origin.get_connections:
+            dist[origin.get_id][dest.get_id] = inf #origin.get_weight(dest)
+
+    for u in dist: #each edge (u,v)
+        for v in dist[u]:
+            dist[u][v] = graph.get_vertex(u).get_weigth(v) #the weight of the edge (u,v)
+    
+    for v in range(1, len(dist)):
+        dist[v][v] = 0
+    
+    for k in range(1, len(dist)): #1 to |V|
+        for i in range(1, len(dist)):
+            for j in range(1, len(dist)):
+                if dist[i][j] > dist[i][k] + dist[k][j]: 
+                    dist[i][j] = dist[i][k] + dist[k][j]
+
+    print(dist)
     print(ongoing_trips)
     print(starting_trips)
 except ValueError:
