@@ -1,19 +1,23 @@
+from fileinput import input
+
+
 class Vertex:
     def __init__(self, v):
         self.name = v
-        self.adjacent = {} 
+        self.adjacent = {}
 
     def add_neighbor(self, neighbor, weight=0):
         self.adjacent[neighbor] = weight
 
     def get_connections(self):
-        return self.adjacent.keys()  
+        return self.adjacent.keys()
 
     def get_id(self):
         return self.name
 
     def get_weight(self, neighbor):
         return self.adjacent[neighbor]
+
 
 class Graph:
     def __init__(self):
@@ -35,7 +39,7 @@ class Graph:
         else:
             return None
 
-    def add_edge(self, origin, dest, cost = 0):
+    def add_edge(self, origin, dest, cost=0):
         if origin not in self.vertices:
             self.add_vertex(origin)
         if dest not in self.vertices:
@@ -47,19 +51,31 @@ class Graph:
     def get_vertices(self):
         return self.vertices.keys()
 
-from fileinput import input
 
 try:
     graph = Graph()
+    reading_trips = False
+    starting_trips = []
+    ongoing_trips = []
     for line in input():
         words = line.split(" ")
-        if len(words) > 1:
-            print(words)
+        if len(words) > 1 and not reading_trips:
             origin = words[0]
             dest = words[1]
             weight = words[2]
             graph.add_edge(origin, dest, weight)
-        else: 
-            break
+        elif len(words) == 3 and reading_trips:
+            origin = words[0]
+            dest = words[1]
+            current = words[2]
+            ongoing_trips.append((origin, dest, current))
+        elif len(words) == 2 and reading_trips:
+            origin = words[0]
+            dest = words[1]
+            starting_trips.append((origin, dest))
+        else:
+            reading_trips = True
+    print(ongoing_trips)
+    print(starting_trips)
 except ValueError:
     print("Error")
