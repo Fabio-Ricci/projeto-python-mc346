@@ -1,6 +1,6 @@
 from fileinput import input
 from math import inf
-from classes.Graph import Graph
+from classes import Graph
 
 def read_input():
     graph = Graph()
