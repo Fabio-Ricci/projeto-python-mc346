@@ -47,14 +47,19 @@ class Graph:
     def get_vertices(self):
         return self.vertices.keys()
 
+from fileinput import input
+
 try:
     graph = Graph()
-    while str != "":
-        str=input()
-        words = str.split(" ")
-        origin = words[0]
-        dest = words[1]
-        weight = words[2]
-        graph.add_edge(origin, dest, weight)
+    for line in input():
+        words = line.split(" ")
+        if len(words) > 1:
+            print(words)
+            origin = words[0]
+            dest = words[1]
+            weight = words[2]
+            graph.add_edge(origin, dest, weight)
+        else: 
+            break
 except ValueError:
     print("Error")
