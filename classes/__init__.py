@@ -1,2 +1,2 @@
-from classes.Vertex import Vertex
+from classes.Edge import Edge
 from classes.Graph import Graph

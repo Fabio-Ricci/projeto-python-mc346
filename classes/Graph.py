@@ -1,33 +1,27 @@
-from classes import Vertex
+from classes import Edge
 
 class Graph:
     def __init__(self):
-        self.vertices = {}
-        self.num_vertices = 0
+        self.edges = []
+        self.num_edges = 0
 
-    def __iter__(self):
-        return iter(self.vertices.values())
+    def add_edge(self, origin, dest, weight):
+        edge = Edge(origin, dest, weight)
+        if edge not in self.edges:
+            self.numvertices = self.num_edges + 1
+            self.edges.append(edge)
 
-    def add_vertex(self, node):
-        self.num_vertices = self.num_vertices + 1
-        new_vertex = Vertex(node)
-        self.vertices[node] = new_vertex
-        return new_vertex
+    def get_edges(self):
+        return self.edges
 
-    def get_vertex(self, n):
-        if n in self.vertices:
-            return self.vertices[n]
-        else:
-            return None
-
-    def add_edge(self, origin, dest, cost=0):
-        if origin not in self.vertices:
-            self.add_vertex(origin)
-        if dest not in self.vertices:
-            self.add_vertex(dest)
-
-        self.vertices[origin].add_neighbor(self.vertices[dest], cost)
-        self.vertices[dest].add_neighbor(self.vertices[origin], cost)
-
-    def get_vertices(self):
-        return self.vertices.keys()
+    def get_num_edges(self):
+        return self.num_edges
+    
+    def get_num_vertices(self):
+        vertices = []
+        for edge in self.edges:
+            if edge.get_origin() not in vertices:
+                vertices.append(edge.get_origin())
+            if edge.get_dest() not in vertices:
+                vertices.append(edge.get_dest())            
+        return len(vertices)
