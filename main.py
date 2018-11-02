@@ -1,6 +1,7 @@
 from fileinput import input
-from math import inf
 from classes import Graph
+from floydwarshall import do_floyd_warshall
+from tripmethods import calculate_max_incovenience
 
 def read_input():
     graph = Graph()
@@ -27,26 +28,17 @@ def read_input():
             reading_trips = True
     return (graph, starting_trips, ongoing_trips)
 
-def do_floyd_warshall(graph, starting_trips, ongoing_trips):
-    size = graph.get_num_vertices()
-    dist = [[inf for x in range(size)] for y in range(size)]
-    for edge in graph.get_edges():
-        dist[edge.get_origin()][edge.get_dest()] = edge.get_weight()
-    for i in range(size):
-        dist[i][i] = 0
-    for k in range(size):
-        for i in range(size):
-            for j in range(size):
-                if dist[i][j] > dist[i][k] + dist[k][j]:
-                    dist[i][j] = dist[i][k] + dist[k][j]
-    return dist
-
 try:
     (graph, starting_trips, ongoing_trips) = read_input()
-    dist = do_floyd_warshall(graph, starting_trips, ongoing_trips)
+    dist = do_floyd_warshall(graph)
 
+    trips = starting_trips + ongoing_trips
     print(dist)
     print(ongoing_trips)
     print(starting_trips)
+    print(trips)
+    print(calculate_max_incovenience(trips[0], trips[1], dist))
+
+
 except ValueError:
     print("Error")
