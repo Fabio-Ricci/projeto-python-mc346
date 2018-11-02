@@ -27,10 +27,7 @@ def read_input():
             reading_trips = True
     return (graph, starting_trips, ongoing_trips)
 
-try:
-    (graph, starting_trips, ongoing_trips) = read_input()
-
-    #Floyd-Warshall algorithm
+def do_floyd_warshall(graph, starting_trips, ongoing_trips):
     size = graph.get_num_vertices()
     dist = [[inf for x in range(size)] for y in range(size)]
     for edge in graph.get_edges():
@@ -42,6 +39,11 @@ try:
             for j in range(size):
                 if dist[i][j] > dist[i][k] + dist[k][j]:
                     dist[i][j] = dist[i][k] + dist[k][j]
+    return dist
+
+try:
+    (graph, starting_trips, ongoing_trips) = read_input()
+    dist = do_floyd_warshall(graph, starting_trips, ongoing_trips)
 
     print(dist)
     print(ongoing_trips)
