@@ -32,12 +32,10 @@ try:
     (graph, starting_trips, ongoing_trips) = read_input()
     dist = do_floyd_warshall(graph)
 
-    trips = starting_trips + ongoing_trips
     print(dist)
     print(ongoing_trips)
     print(starting_trips)
-    print(trips)
-    print(calculate_max_incovenience(trips[0], trips[1], dist))
+    print(calculate_max_incovenience(starting_trips[0], starting_trips[1], dist))
 
 
 except ValueError:
