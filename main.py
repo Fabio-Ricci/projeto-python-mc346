@@ -1,7 +1,7 @@
 from fileinput import input
 from classes import Graph
-from floydwarshall import do_floyd_warshall
-from tripmethods import calculate_max_incovenience
+from methods.floydwarshall import do_floyd_warshall
+from methods.tripmethods import calculate_max_incovenience
 
 def read_input():
     graph = Graph()
