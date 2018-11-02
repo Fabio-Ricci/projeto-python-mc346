@@ -1,4 +1,4 @@
-
+from functools import reduce
 
 def calculate_max_incovenience(trip_a, trip_b, dist):
     (origin_a, dest_a) = trip_a
@@ -39,7 +39,6 @@ def calculate_max_incovenience(trip_a, trip_b, dist):
                       [dest_a] + dist[dest_a][dest_b]) / base_time_b
     possible_paths.append((path, max(incovenience_a, incovenience_b)))
 
+    result = reduce((lambda a, b: a if a[1] < b[1] else b), possible_paths)
 
-    print(possible_paths)
-
-    return 1
+    return result
