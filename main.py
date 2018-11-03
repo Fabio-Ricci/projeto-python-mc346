@@ -1,7 +1,7 @@
 from fileinput import input
 from classes import Graph
 from methods.floydwarshall import do_floyd_warshall
-from methods.tripmethods import calculate_max_incovenience
+from methods.tripmethods import calculate_max_incovenience, get_min_inconvenience
 
 def read_input():
     graph = Graph()
@@ -18,7 +18,7 @@ def read_input():
         elif len(words) == 3 and reading_trips:
             origin = int(words[0])
             dest = int(words[1])
-            current = float(words[2])
+            current = int(words[2])
             ongoing_trips.append((origin, dest, current))
         elif len(words) == 2 and reading_trips:
             origin = int(words[0])
@@ -35,8 +35,8 @@ try:
     print(dist)
     print(ongoing_trips)
     print(starting_trips)
-    print(calculate_max_incovenience(starting_trips[0], starting_trips[1], dist))
-
+    print(calculate_max_incovenience(starting_trips[0], starting_trips[2], dist))
+    print(get_min_inconvenience(ongoing_trips, starting_trips, dist))
 
 except ValueError:
     print("Error")
