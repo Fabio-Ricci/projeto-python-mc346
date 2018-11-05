@@ -35,8 +35,9 @@ try:
     print(dist)
     print(ongoing_trips)
     print(starting_trips)
-    print(calculate_max_incovenience(starting_trips[0], starting_trips[2], dist))
-    print(get_min_inconvenience(starting_trips[0], ongoing_trips, starting_trips, dist))
+    starting_trips_aux = starting_trips.copy()
+    for trip in starting_trips_aux:
+        print(get_min_inconvenience(trip, ongoing_trips, starting_trips, dist))
 
 except ValueError:
     print("Error")

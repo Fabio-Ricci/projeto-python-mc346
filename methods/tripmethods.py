@@ -81,21 +81,30 @@ def get_min_inconvenience(trip, ongoing_trips, starting_trips, dist):
     # inconvenience for starting_trips
     for i in range(len(starting_trips)):
         inconveniences.append(calculate_max_incovenience(trip, starting_trips[i], dist))
-    
+
     # inconveniences for ongoing_trips
     for i in range(len(ongoing_trips)):
         inconveniences.append(calculate_max_incovenience_ongoing(ongoing_trips[i], trip, dist))
 
     min_inconvenience = inf
+    index = 0
     for i in range(len(inconveniences)):
         (_, inco) = inconveniences[i]
         if inco == 1.0:
            inconvenience_1 = inconveniences[i]
         elif inco < min_inconvenience:
+            index = i
             inconvenience = inconveniences[i]
             min_inconvenience = inco
 
+    starting_trips.remove(trip)
+
     if min_inconvenience > 1.4:
         return inconvenience_1
+
+    if index > len(starting_trips):
+        ongoing_trips.pop(index-(len(starting_trips)+1))
+    else:
+        starting_trips.pop(index)
 
     return inconvenience
