@@ -34,7 +34,8 @@ try:
     
     starting_trips_aux = starting_trips.copy()
     for trip in starting_trips_aux:
-        print(get_min_inconvenience(trip, ongoing_trips, starting_trips, dist))
+        if trip in starting_trips:
+            print(get_min_inconvenience(trip, ongoing_trips, starting_trips, dist))
 
-except ValueError:
-    print("Error")
+except Exception as e: 
+    print(e)
