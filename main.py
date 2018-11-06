@@ -31,10 +31,7 @@ def read_input():
 try:
     (graph, starting_trips, ongoing_trips) = read_input()
     dist = do_floyd_warshall(graph)
-
-    print(dist)
-    print(ongoing_trips)
-    print(starting_trips)
+    
     starting_trips_aux = starting_trips.copy()
     for trip in starting_trips_aux:
         print(get_min_inconvenience(trip, ongoing_trips, starting_trips, dist))
