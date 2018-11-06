@@ -31,7 +31,7 @@ def read_input():
 try:
     (graph, starting_trips, ongoing_trips) = read_input()
     dist = do_floyd_warshall(graph)
-    
+
     starting_trips_aux = starting_trips.copy()
     for trip in starting_trips_aux:
         if trip in starting_trips:

@@ -80,31 +80,32 @@ def get_min_inconvenience(trip, ongoing_trips, starting_trips, dist):
     inconveniences = []
     # inconvenience for starting_trips
     for i in range(len(starting_trips)):
-        if trip != starting_trips[i]:
-            #print(calculate_max_incovenience(trip, starting_trips[i], dist))
-            inconveniences.append(calculate_max_incovenience(trip, starting_trips[i], dist))
+        (_, dest_a) = trip
+        (origin_b, _) = starting_trips[i]
+        if trip != starting_trips[i] and dest_a != origin_b:
+            inconveniences.append((trip, starting_trips[i], calculate_max_incovenience(trip, starting_trips[i], dist)))
 
     # inconveniences for ongoing_trips
     for i in range(len(ongoing_trips)):
-        inconveniences.append(calculate_max_incovenience_ongoing(ongoing_trips[i], trip, dist))
+        inconveniences.append((trip, ongoing_trips[i], calculate_max_incovenience_ongoing(ongoing_trips[i], trip, dist)))
 
     min_inconvenience = inf
-    index = 0
     for i in range(len(inconveniences)):
-        (_, inco) = inconveniences[i]
+        (_, _, inc) = inconveniences[i]
+        (_, inco) = inc
         if inco < min_inconvenience:
-            index = i
             inconvenience = inconveniences[i]
             min_inconvenience = inco
 
-    if min_inconvenience > 1.4 or min_inconvenience == 1.0:
+    if min_inconvenience > 1.4: #or min_inconvenience == 1.0
         starting_trips.remove(trip)
         return (trip, 1.0)
 
-    if index > len(starting_trips):
-        ongoing_trips.pop(index-len(starting_trips))
+    (_, trip_b, result) = inconvenience
+    if trip_b in ongoing_trips:
+        ongoing_trips.remove(trip_b)
     else:
-        starting_trips.pop(index+1)
+        starting_trips.remove(trip_b)
     starting_trips.remove(trip)
 
-    return inconvenience
+    return result
