@@ -97,7 +97,7 @@ def get_min_inconvenience(trip, ongoing_trips, starting_trips, dist):
             inconvenience = inconveniences[i]
             min_inconvenience = inco
 
-    if min_inconvenience > 1.4: #or min_inconvenience == 1.0
+    if min_inconvenience > 1.4:
         starting_trips.remove(trip)
         return (trip, 1.0)
 
