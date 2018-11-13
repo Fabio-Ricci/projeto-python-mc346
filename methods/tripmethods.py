@@ -108,4 +108,4 @@ def get_min_inconvenience(trip, ongoing_trips, starting_trips, dist):
         starting_trips.remove(trip_b)
     starting_trips.remove(trip)
 
-    return result
+    return inconvenience
