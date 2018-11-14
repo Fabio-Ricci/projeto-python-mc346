@@ -68,5 +68,11 @@ try:
             else:
                 (trip_a, trip_b, inconvenience) = min_inco
                 print_paths(trip_a, trip_b, inconvenience, indexes)
+
+    for trip in ongoing_trips:
+        (_, dest, current) = trip
+        index = indexes.index(trip) + 1
+        print("passageiro: " + str(index) + " percurso: " + str(current) + " " + str(dest))
+
 except Exception as e: 
     print(e)
