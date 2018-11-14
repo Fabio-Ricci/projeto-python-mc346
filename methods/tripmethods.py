@@ -11,7 +11,8 @@ def calculate_max_incovenience_ongoing(ongoing_trip, starting_trip, dist):
     possible_paths = []
 
     # A,X,C,B,D
-    path = (origin_a, current_a, origin_b, dest_a, dest_b)
+    #path = (origin_a, current_a, origin_b, dest_a, dest_b)
+    path = (origin_a, origin_b, dest_a, dest_b)
     incovenience_a = (dist[current_a][origin_b] +
                       dist[origin_b][dest_a]) / base_time_a
     incovenience_b = (dist[origin_b][dest_a] +
@@ -19,7 +20,8 @@ def calculate_max_incovenience_ongoing(ongoing_trip, starting_trip, dist):
     possible_paths.append((path, max(incovenience_a, incovenience_b)))
 
     # A,X,C,D,B
-    path = (origin_a, current_a, origin_b, dest_b, dest_a)
+    #path = (origin_a, current_a, origin_b, dest_b, dest_a)
+    path = (origin_a, origin_b, dest_b, dest_a)
     incovenience_a = (dist[current_a][origin_b] +
                       dist[origin_b][dest_b] +
                       dist[dest_b][dest_a]) / base_time_a
@@ -101,7 +103,7 @@ def get_min_inconvenience(trip, ongoing_trips, starting_trips, dist):
         starting_trips.remove(trip)
         return (trip, 1.0)
 
-    (_, trip_b, result) = inconvenience
+    (_, trip_b, _) = inconvenience
     if trip_b in ongoing_trips:
         ongoing_trips.remove(trip_b)
     else:
