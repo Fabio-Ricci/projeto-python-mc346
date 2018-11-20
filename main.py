@@ -2,6 +2,7 @@ from fileinput import input
 from classes import Graph
 from methods.floydwarshall import do_floyd_warshall
 from methods.tripmethods import calculate_max_incovenience, get_min_inconvenience
+from sys import argv
 
 def print_paths(trip_a, trip_b, inconvenience, indexes):
     if (trip_a in indexes):
@@ -31,26 +32,32 @@ def read_input():
     starting_trips = []
     ongoing_trips = []
     indexes = []
-    for line in input():
-        words = line.split(" ")
-        if len(words) > 1 and not reading_trips:
-            origin = int(words[0])
-            dest = int(words[1])
-            weight = float(words[2])
-            graph.add_edge(origin, dest, weight)
-        elif len(words) == 3 and reading_trips:
-            origin = int(words[0])
-            dest = int(words[1])
-            current = int(words[2])
-            ongoing_trips.append((origin, dest, current))
-            indexes.append((origin, dest, current))
-        elif len(words) == 2 and reading_trips:
-            origin = int(words[0])
-            dest = int(words[1])
-            starting_trips.append((origin, dest))
-            indexes.append((origin, dest))
-        else:
-            reading_trips = True
+    if len(argv) > 1:
+        f = open(argv[1], 'r')
+        try:
+            lines = iter(f.readlines())
+            for line in lines:
+                words = line.split(" ")
+                if len(words) > 1 and not reading_trips:
+                    origin = int(words[0])
+                    dest = int(words[1])
+                    weight = float(words[2])
+                    graph.add_edge(origin, dest, weight)
+                elif len(words) == 3 and reading_trips:
+                    origin = int(words[0])
+                    dest = int(words[1])
+                    current = int(words[2])
+                    ongoing_trips.append((origin, dest, current))
+                    indexes.append((origin, dest, current))
+                elif len(words) == 2 and reading_trips:
+                    origin = int(words[0])
+                    dest = int(words[1])
+                    starting_trips.append((origin, dest))
+                    indexes.append((origin, dest))
+                else:
+                    reading_trips = True
+        finally:
+            f.close()
     return (graph, starting_trips, ongoing_trips, indexes)
 
 try:
