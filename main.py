@@ -37,6 +37,7 @@ def read_input():
         try:
             lines = iter(f.readlines())
             for line in lines:
+                line = line.strip()
                 words = line.split(" ")
                 if len(words) > 1 and not reading_trips:
                     origin = int(words[0])
